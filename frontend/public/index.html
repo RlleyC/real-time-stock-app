@@ -3,18 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Dashboard</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <title>Stock Data Fetcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 70%;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <h1>Stock Market Dashboard</h1>
-        <input type="text" id="stockSymbol" placeholder="Enter Stock Symbol (e.g. AAPL)">
-        <button id="fetchStockData">Fetch Stock Data</button>
 
-        <div id="stockData"></div>
+    <div class="container">
+        <h1>Stock Data Fetcher</h1>
+        <input type="text" id="stockSymbol" placeholder="Enter stock symbol (e.g., AAPL, TSLA)">
+        <button onclick="fetchStockData()">Get Stock Data</button>
+        
+        <div id="result" class="result"></div>
     </div>
 
-    <script src="static/app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
