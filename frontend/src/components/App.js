@@ -1,32 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import './styles.css';
-import DarkMode from './DarkMode';
+// app.js
 
-const App = () => {
-    const [stockData, setStockData] = useState(null);
+// Function to fetch stock data from the backend
+function fetchStockData() {
+    const stockSymbol = document.getElementById('stockSymbol').value;
 
-    const fetchStockData = async (symbol) => {
-        const response = await fetch(`/api/stock/${symbol}`);
-        const data = await response.json();
-        setStockData(data);
-    };
+    // Ensure the user has entered a stock symbol
+    if (!stockSymbol) {
+        alert("Please enter a stock symbol.");
+        return;
+    }
 
-    useEffect(() => {
-        fetchStockData('AAPL');  // Fetch Apple stock as an example on load
-    }, []);
-
-    return (
-        <div>
-            <h1>Real-Time Stock Market App</h1>
-            <DarkMode />
-            {stockData && (
-                <div>
-                    <h2>{stockData.symbol} Stock</h2>
-                    <p>Price: {stockData.price}</p>
-                </div>
-            )}
-        </div>
-    );
-};
-
-export default App;
+    // Make the GET request to the Flask API endpoint to get stock data
+    fetch(`/api/stock/${stockSymbol}`)
+        .then(response => response.json())
+        .then(data => {
+            // If there's an error (like no data for the stock symbol), show the error
+            if (data.error) {
+                document.getElementById('result').innerHTML = `<p class="error">${data.error}</p>`;
+            } else {
+                // Display the stock data if available
+                document.getElementById('result').innerHTML = `
+                    <h2>Stock Data for ${data.symbol}</h2>
+                    <p><strong>Price:</strong> $${data.price}</p>
+                    <p><strong>High:</strong> $${data.high}</p>
+                    <p><strong>Low:</strong> $${data.low}</p>
+                    <p><strong>Volume:</strong> ${data.volume}</p>
+                `;
+            }
+        })
+        .catch(error => {
+            // Handle any network or other errors
+            document.getElementById('result').innerHTML = `<p class="error">Error fetching stock data. Please try again later.</p>`;
+            console.error("Error:", error);
+        });
+}
