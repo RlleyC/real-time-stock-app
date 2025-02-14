@@ -1,31 +1,30 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, request, send_from_directory
 import yfinance as yf
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='public', template_folder='templates')
 
-# Basic route to serve the frontend
+# Serve the index.html from the public folder
 @app.route('/')
-def index():
-    return render_template('index.html')
+def serve_index():
+    return send_from_directory(app.static_folder, 'index.html')
 
 # API endpoint to fetch stock data from Yahoo Finance
 @app.route('/api/stock/<symbol>', methods=['GET'])
 def get_stock_data(symbol):
     try:
-        # Fetch stock data from Yahoo Finance using yfinance
         stock = yf.Ticker(symbol)
         data = stock.history(period="1d")
         
-        # Handle cases where no data is available
         if data.empty:
             return jsonify({'error': 'Stock data not available'}), 404
         
         stock_info = {
             'symbol': symbol,
-            'price': data['Close'][-1],  # Get the latest closing price
-            'high': data['High'][-1],    # Latest high price
-            'low': data['Low'][-1],      # Latest low price
-            'volume': data['Volume'][-1] # Latest trading volume
+            'price': data['Close'][-1],
+            'high': data['High'][-1],
+            'low': data['Low'][-1],
+            'volume': data['Volume'][-1]
         }
         return jsonify(stock_info)
     
@@ -43,7 +42,6 @@ def compare_stocks():
             stock = yf.Ticker(symbol)
             data = stock.history(period="1d")
             
-            # Handle cases where no data is available
             if data.empty:
                 stock_data[symbol] = {'error': 'Data not available'}
                 continue
