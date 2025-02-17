@@ -100,6 +100,22 @@
             font-size: 14px;
             color: #B27FFF;
         }
+         /* Styling for the top gainers and losers sections */
+        .top-stocks {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .top-stocks .column {
+            width: 48%;
+        }
+        .top-stocks ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .top-stocks li {
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -109,7 +125,7 @@
     <div class="container">
         <!-- Time Period Slider -->
         <div class="slider-container">
-            <input type="range" class="slider" id="timePeriodSlider" min="1" max="7" step="1" value="1">
+            <input type="range" class="slider" id="timePeriodSlider" min="1" max="7" step="1" value="4">
             <div class="slider-value">
                 <span>1d</span>
                 <span>3d</span>
@@ -122,11 +138,35 @@
         </div>
 
         <h1>Market Check</h1>
-        <input type="text" id="stockSymbol" placeholder="Enter stock symbol (e.g., AAPL, TSLA)">
+        <input type="text" id="stockSymbol" placeholder="Enter stock symbol (e.g., GOOGL, T, TXN, XOM)">
         <button onclick="fetchStockData()">Get Stock Data</button>
         
         <div id="result" class="result"></div>
+
+<!-- Result Section for Stock Data -->
+<div id="stockResult" class="stockResult">
+</div>
+
+<h1>Top 20 S&P 500 Large Cap</h1>
+
+<!-- Top Gainers and Top Losers Section -->
+<div class="top-stocks">
+    <div class="column">
+        <h2>Top Gainers</h2>
+        <div id="topGainers" class="stockResult">
+            <div class="loader"></div>
+        </div>
     </div>
+    <div class="column">
+        <h2>Top Losers</h2>
+        <div id="topLosers" class="stockResult">
+            <div class="loader"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Explanation of results -->
+<p>*Displays the top 5 gainers and losers for the selected time period. Uses the top 20 S&P 500 stocks with the highest market capitalizations.*</p>
 
     <!-- Correct JavaScript path -->
     <script src="{{ url_for('static', filename='js/App.js') }}"></script>
@@ -138,4 +178,5 @@
         }
     </script>
 </body>
+<small>@RlleyC</small>
 </html>
