@@ -72,6 +72,8 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
+
+
 #Demo Screenshots
 ![MarketCheckLight](https://github.com/user-attachments/assets/fc2a7b8b-d571-492d-af19-a43eaad01928)
 ![MarketCheckDark](https://github.com/user-attachments/assets/0751e5bc-bde9-453c-90c9-be8dcc777da0)
