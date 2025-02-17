@@ -17,42 +17,36 @@ def serve_index():
 @app.route('/api/stock/<symbol>', methods=['GET'])
 def get_stock_data(symbol):
     try:
-        logging.debug(f"Fetching stock data for symbol: {symbol}")
+        # Get the period from the query parameters (default is "1d")
+        period = request.args.get('period', default='1d', type=str)
+        logging.debug(f"Fetching stock data for symbol: {symbol} with period: {period}")
+        
         stock = yf.Ticker(symbol)
-        data = stock.history(period="1d")
+        data = stock.history(period=period)
         
         if data.empty:
             logging.error(f"No data found for symbol: {symbol}")
             return jsonify({'error': 'Stock data not available'}), 404
         
         logging.debug(f"Received data: {data.head()}")  # Log the first few rows of data for inspection
-        logging.debug(f"Index type: {type(data.index)}")  # Log the type of the index
-
-        # Check if the index is a DatetimeIndex
-        if isinstance(data.index, pd.DatetimeIndex):
-            logging.debug("Index is a DatetimeIndex.")
-            # Handle timezone conversion
-            if data.index.tz is None:  # If the datetime index is naive (without timezone)
-                logging.debug("Index is naive, localizing to UTC.")
-                data.index = data.index.tz_localize('UTC')  # Set to UTC if naive
-            else:  # If the datetime index already has a timezone
-                logging.debug("Index is timezone-aware, converting to UTC.")
-                data.index = data.index.tz_convert('UTC')  # Convert it to UTC if aware
-        else:
-            logging.error(f"Unexpected index type: {type(data.index)}. Expected DatetimeIndex.")
-            return jsonify({'error': 'Unexpected index type, expected DatetimeIndex'}), 500
 
         # Reset the index so that the datetime is treated as a regular column
         data_reset = data.reset_index()
-        logging.debug(f"Data after reset_index: {data_reset.head()}")
 
-        # Convert data to native Python types to avoid serialization issues
+        # Find the highest and lowest values for the period
+        period_high = round(data['High'].max(), 2)
+        period_low = round(data['Low'].min(), 2)
+
+        # Sum up the volume over the selected period
+        total_volume = data['Volume'].sum()
+
+        # Prepare the stock information
         stock_info = {
             'symbol': symbol,
-            'price': f"{round(float(data['Close'][-1]), 2):,.2f}",  # Format with rounding and commas
-            'high': f"{round(float(data['High'][-1]), 2):,.2f}",    # Format with rounding and commas
-            'low': f"{round(float(data['Low'][-1]), 2):,.2f}",      # Format with rounding and commas
-            'volume': f"{int(data['Volume'][-1]):,}"  # Add commas to volume
+            'price': f"{round(float(data['Close'][-1]), 2):,.2f}",
+            'high': f"{period_high:,.2f}",  # Maximum High for the period
+            'low': f"{period_low:,.2f}",    # Minimum Low for the period
+            'volume': f"{total_volume:,}"  # Total volume over the period
         }
         logging.debug(f"Stock info: {stock_info}")
         return jsonify(stock_info)
@@ -66,11 +60,13 @@ def get_stock_data(symbol):
 def compare_stocks():
     try:
         symbols = request.args.get('symbols').split(',')
+        period = request.args.get('period', default='1d', type=str)  # Get period for comparison
+        
         stock_data = {}
         
         for symbol in symbols:
             stock = yf.Ticker(symbol)
-            data = stock.history(period="1d")
+            data = stock.history(period=period)
             
             if data.empty:
                 stock_data[symbol] = {'error': 'Data not available'}
@@ -78,10 +74,10 @@ def compare_stocks():
             
             # Convert data to native Python types to avoid serialization issues
             stock_data[symbol] = {
-                'price': data['Close'][-1],
-                'high': data['High'][-1],
-                'low': data['Low'][-1],
-                'volume': data['Volume'][-1]
+                'price': f"{round(float(data['Close'][-1]), 2):,.2f}",
+                'high': f"{round(float(data['High'][-1]), 2):,.2f}",
+                'low': f"{round(float(data['Low'][-1]), 2):,.2f}",
+                'volume': f"{int(data['Volume'][-1]):,}"
             }
         
         return jsonify(stock_data)
