@@ -94,15 +94,91 @@ button:hover {
     background-color: #f9f9f9;
     border-radius: 8px;
     border: 1px solid #ddd;
-    display: none; /* Initially hide the result */
-    /*text-align: left;*/
-    /*margin-left: 0;*/
+    display: none;
+}
+
+/* Stock result section */
+.stockResult {
+    position: relative;
+    min-height: 100px;
+    display: flex;  /* Change from block to flex */
+    justify-content: center;  /* Center horizontally */
+    align-items: center;  /* Center vertically */
+    text-align: center;  /* Keep text aligned to the center */
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Loader styling */
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    display: grid;
+    animation: l14 4s infinite;
+  }
+  
+  .loader::before,
+  .loader::after {    
+    content: "";
+    grid-area: 1/1;
+    border: 8px solid;
+    border-radius: 50%;
+    border-color: red red #0000 #0000;
+    mix-blend-mode: difference;
+    animation: l14 1s infinite linear;
+  }
+  
+  .loader::after {
+    border-color: #0000 #0000 green green;
+    animation-direction: reverse;
+  }
+  
+  @keyframes l14 { 
+    100% {
+      transform: rotate(1turn);
+    }
+  }
+
+/* Top Gainers and Losers Section */
+.top-stocks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.top-stocks .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the titles */
+    width: 48%;
+    text-align: center;  /* Center the title text */
+}
+
+/* Ensure results are centered in the same column, but text is left-aligned */
+.top-stocks .column .stockResult {
+    text-align: center;  /* Left-align the results */
+    width: 100%;  /* Add a width to control how wide the results can go */
+    margin-top: 10px;
+    
+}
+
+/* Additional styling for the percentage color */
+.stockResult span.positive {
+    color: green;
+}
+
+.stockResult span.negative {
+    color: rgb(255, 40, 40);
+}
+
+/* Make sure the stock results don't overflow */
+.top-stocks .column .stockResult ul {
+    padding-left: 0; /* Remove default list padding */
 }
 
 .error {
     color: red;
 }
-
 body.dark-mode .result {
     background-color: #3c3c3c;
     border-color: #444;
