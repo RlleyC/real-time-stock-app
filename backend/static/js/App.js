@@ -21,12 +21,14 @@ function fetchStockData() {
                 // Display the stock data if available
                 document.getElementById('result').innerHTML = `
                     <h2>Stock Data for ${data.symbol}</h2>
-                    <p><strong>Price:</strong> $${data.price}</p>
-                    <p><strong>High:</strong> $${data.high}</p>
-                    <p><strong>Low:</strong> $${data.low}</p>
+                    <p><strong>Current Price:</strong> $${data.price}</p>
+                    <p><strong>Period High:</strong> $${data.high}</p>
+                    <p><strong>Period Low:</strong> $${data.low}</p>
                     <p><strong>Volume:</strong> ${data.volume}</p>
                 `;
             }
+            // Show the result div
+            document.getElementById('result').style.display = 'block';
         })
         .catch(error => {
             // Handle any network or other errors
@@ -34,3 +36,21 @@ function fetchStockData() {
             console.error("Error:", error);
         });
 }
+
+// Function to toggle light/dark mode
+function toggleMode() {
+    const darkMode = document.body.classList.toggle('dark-mode');
+    
+    // Save the current theme to localStorage
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+}
+
+// Check the stored theme on page load and apply it
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+});
