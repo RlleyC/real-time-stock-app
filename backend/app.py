@@ -49,9 +49,9 @@ def get_stock_data(symbol):
         # Convert data to native Python types to avoid serialization issues
         stock_info = {
             'symbol': symbol,
-            'price': f"{round(float(data['Close'][-1]), 4):,.4f}",  # Format with rounding and commas
-            'high': f"{round(float(data['High'][-1]), 4):,.4f}",    # Format with rounding and commas
-            'low': f"{round(float(data['Low'][-1]), 4):,.4f}",      # Format with rounding and commas
+            'price': f"{round(float(data['Close'][-1]), 2):,.2f}",  # Format with rounding and commas
+            'high': f"{round(float(data['High'][-1]), 2):,.2f}",    # Format with rounding and commas
+            'low': f"{round(float(data['Low'][-1]), 2):,.2f}",      # Format with rounding and commas
             'volume': f"{int(data['Volume'][-1]):,}"  # Add commas to volume
         }
         logging.debug(f"Stock info: {stock_info}")
