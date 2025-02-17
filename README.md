@@ -1,10 +1,3 @@
-This README provides:
-1. **Purpose** of the program (Stock Tracker).
-2. **Setup instructions** (cloning the repo, creating a virtual environment, installing dependencies, and running the program).
-3. Instructions on **how to contribute** and other relevant details.
-
-Let me know if you'd like any adjustments or additions to this!
-
 # real-time-stock-app
 
 ## Intent of the Program
