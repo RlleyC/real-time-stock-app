@@ -13,10 +13,10 @@ The **real-time-stock-app** allows users to track top stock gainers and losers f
 
 ## Features
 - Uses yfinance for free stock integration.
-- Display the top 20 S&P 500 stocks for the selected time period.
+- Display the top 20 Large Market Cap S&P 500 stocks for the selected time period.
 - View of top gainers and top losers, based on percentage change.
 - Historical stock data retrieval (current price, high, low, volume).
-- Customizable time periods (1d, 3d, 10d, 30d, etc.).
+- Customizable time periods via slider (1d, 3d, 10d, 30d, etc.).
 - Responsive interface with real-time updates.
 - Light and Dark mode preferences.
 - Option to input a single stock symbol to view its data.
