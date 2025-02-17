@@ -49,10 +49,10 @@ def get_stock_data(symbol):
         # Convert data to native Python types to avoid serialization issues
         stock_info = {
             'symbol': symbol,
-            'price': float(data['Close'][-1]),  # Convert to float
-            'high': float(data['High'][-1]),    # Convert to float
-            'low': float(data['Low'][-1]),      # Convert to float
-            'volume': int(data['Volume'][-1])   # Convert to int
+            'price': f"${round(float(data['Close'][-1]), 4):,.4f}",  # Format with rounding and commas
+            'high': f"${round(float(data['High'][-1]), 4):,.4f}",    # Format with rounding and commas
+            'low': f"${round(float(data['Low'][-1]), 4):,.4f}",      # Format with rounding and commas
+            'volume': f"{int(data['Volume'][-1]):,}"  # Add commas to volume
         }
         logging.debug(f"Stock info: {stock_info}")
         return jsonify(stock_info)
@@ -78,17 +78,11 @@ def compare_stocks():
             
             # Convert data to native Python types to avoid serialization issues
             stock_data[symbol] = {
-                'price': f"${round(data['Close'][-1], 4):,.4f}",  # Round to 4 decimals and add commas
-                'high': f"${round(data['High'][-1], 4):,.4f}",    # Round to 4 decimals and add commas
-                'low': f"${round(data['Low'][-1], 4):,.4f}",      # Round to 4 decimals and add commas
-                'volume': f"{int(data['Volume'][-1]):,}"  # Add commas to volume
+                'price': data['Close'][-1],
+                'high': data['High'][-1],
+                'low': data['Low'][-1],
+                'volume': data['Volume'][-1]
             }
-
-            # Debugging output
-            print(f"Price: {data['Close'][-1]}")
-            print(f"High: {data['High'][-1]}")
-            print(f"Low: {data['Low'][-1]}")
-            print(f"Volume: {data['Volume'][-1]}")
         
         return jsonify(stock_data)
     
