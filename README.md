@@ -46,15 +46,15 @@ cd real-time-stock-app
 python -m venv venv
 ```
 ## Activate the virtual environment:
-# Windows CMD
+#### Windows CMD
 ```bash
 venv\Scripts\activate
 ```
-# Windows (Git Bash)
+#### Windows (Git Bash)
 ```bash
 source venv/Scripts/activate
 ```
-# macOS/Linux
+#### macOS/Linux
 ```bash
 source venv/bin/activate
 ```
