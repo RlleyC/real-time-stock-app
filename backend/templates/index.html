@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Data Fetcher</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- CSS path -->
+    <title>Market Check</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <!-- Corrected CSS path -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,7 +18,7 @@
             background-color: #f0f0f0;
         }
         h1 {
-            color: #333;
+            color: #B27FFF;
         }
         .container {
             max-width: 800px;
@@ -54,12 +54,28 @@
         .error {
             color: red;
         }
+        .mode-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .mode-toggle-btn:hover {
+            background-color: #444;
+        }
     </style>
 </head>
 <body>
 
+    <button class="mode-toggle-btn" onclick="toggleMode()">Toggle Light/Dark Mode</button>
+
     <div class="container">
-        <h1>Stock Data Fetcher</h1>
+        <h1>Market Check</h1>
         <input type="text" id="stockSymbol" placeholder="Enter stock symbol (e.g., AAPL, TSLA)">
         <button onclick="fetchStockData()">Get Stock Data</button>
         
@@ -68,5 +84,12 @@
 
     <!-- Correct JavaScript path -->
     <script src="{{ url_for('static', filename='js/App.js') }}"></script>
+
+    <script>
+        // Function to toggle light/dark mode
+        function toggleMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 </body>
 </html>
