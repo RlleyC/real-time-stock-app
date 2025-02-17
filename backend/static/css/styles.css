@@ -1,13 +1,126 @@
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
-}
-
-body.light-mode {
-    background-color: #fff;
-    color: #000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for mode switch */
 }
 
 body.dark-mode {
     background-color: #181818;
     color: #fff;
+}
+
+/* Container for the content */
+.container {
+    max-width: 800px;
+    width: 100%;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+body.dark-mode .container {
+    background-color: #2a2a2a;
+}
+
+/* Header Section */
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+    margin-top: 0;
+    color: #888;
+}
+
+body.dark-mode header p {
+    color: #ccc;
+}
+
+/* Input and Button */
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    padding: 12px 20px;
+    font-size: 16px;
+    width: 60%;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Result Section */
+.result {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display: none; /* Initially hide the result */
+    /*text-align: left;*/
+    /*margin-left: 0;*/
+}
+
+.error {
+    color: red;
+}
+
+body.dark-mode .result {
+    background-color: #3c3c3c;
+    border-color: #444;
+}
+
+@media (max-width: 600px) {
+    /* Responsiveness for small devices */
+    .input-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 100%;
+    }
 }
