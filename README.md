@@ -2,7 +2,7 @@
 
 ## Program Intent
 
-The **real-time-stock-app** allows users to track top stock gainers and losers from the S&P 500, retrieve historical stock data, and view trends. This tool helps users monitor market changes by displaying the top 20 Large Market Cap S&P 500 stock symbols with their current price movements and percentage changes over time. Users can specify the time period for the stock data and dynamically update the top gainers and losers based on real-time data. Additionally, users can input a single stock symbol to fetch detailed data on that specific stock.
+The **real-time-stock-app** allows users to view top stock gainers and losers from the S&P 500, retrieve historical stock data, and view trends. This tool helps users monitor market changes by displaying the top 20 Large Market Cap S&P 500 stock symbols with their current price movements and percentage changes over time. Users can specify the time period for the stock data and dynamically update the top gainers and losers based on real-time data. Additionally, users can input a single stock symbol to fetch detailed data on that specific stock.
 
 ## Features
 - Uses yfinance for free stock integration.
