@@ -16,7 +16,6 @@ function hideLoader(sectionId) {
 }
 
 // Function to fetch stock data from the backend
-// Function to fetch stock data from the backend
 function fetchStockData() {
     const stockSymbol = document.getElementById('stockSymbol').value.trim().toUpperCase();
     const timePeriodSlider = document.getElementById('timePeriodSlider');
