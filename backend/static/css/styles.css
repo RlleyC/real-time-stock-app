@@ -151,12 +151,12 @@ button:hover {
     flex-direction: column;
     align-items: center; /* Center the titles */
     width: 48%;
-    text-align: center;  /* Center the title text */
+    text-align: center;  /* Center single title text */
 }
 
-/* Ensure results are centered in the same column, but text is left-aligned */
+/* Center results */
 .top-stocks .column .stockResult {
-    text-align: center;  /* Left-align the results */
+    text-align: center;  /* Center the results */
     width: 100%;  /* Add a width to control how wide the results can go */
     margin-top: 10px;
     
