@@ -45,7 +45,7 @@ def get_top_20_sp500_tickers():
 
     return tickers
 
-# API endpoint to fetch stock data from Yahoo Finance
+# API endpoint to fetch stock data from Yahoo Finance (can change if using another API)
 @app.route('/api/stock/<symbol>', methods=['GET'])
 def get_stock_data(symbol):
     try:
